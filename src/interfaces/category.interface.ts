@@ -12,4 +12,4 @@ interface ICategoryLimits {
 	gif?: number;
 }
 
-export { ICategoryDTO };
+export { ICategoryDTO, ICategoryLimits };

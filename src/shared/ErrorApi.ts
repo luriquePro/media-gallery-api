@@ -47,4 +47,10 @@ class NotFoundError extends ErrorApi {
 	}
 }
 
-export { BadRequestError, CustomError, ErrorApi, NotFoundError, UnauthorizedError };
+class ValidationError extends ErrorApi {
+	constructor(message: string, session?: ClientSession) {
+		super(message, 422, session);
+	}
+}
+
+export { BadRequestError, CustomError, ErrorApi, NotFoundError, UnauthorizedError, ValidationError };

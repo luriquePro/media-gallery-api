@@ -1,10 +1,13 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
+import { CreateCategoryController } from "../usecases/Category/CreateCategory/CreateCategory.controller";
+import { CreateCategoryService } from "../usecases/Category/CreateCategory/CreateCategory.service";
 
 const categoryRouter = Router();
 
-categoryRouter.get("/", async (req: Request, res: Response) => {
-	res.json({ message: "Rota de categorias" });
-});
+const createCategoryService = new CreateCategoryService();
+const createCategoryController = new CreateCategoryController(createCategoryService);
+
+categoryRouter.post("/create", createCategoryController.handle.bind(createCategoryController));
 
 const categoryRoutes = { key: "/category", routes: categoryRouter };
 export { categoryRoutes };
