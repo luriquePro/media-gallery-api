@@ -5,7 +5,7 @@ const PORT = Number(process.env.PORT);
 const app = new ApplicationAPI();
 
 const cb = () => {
-	console.log(`Servidor iniciado. \nRodando na porta: ${process.env.PORT}. \nData: ${moment().format("DD/MM/YY HH:MM:SS")}.`);
+	console.log(`Servidor iniciado. \nRodando na porta: ${process.env.PORT}. \nData: ${moment().format("DD/MM/YY hh:mm:ss")}.`);
 };
 
 app.listen(PORT, cb);
