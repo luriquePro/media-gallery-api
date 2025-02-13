@@ -54,6 +54,6 @@ export default {
 				message: "$match can be used consecutively.",
 			},
 		],
-		"prettier/prettier": "error",
+		"prettier/prettier": ["error", { endOfLine: "auto" }],
 	},
 };
