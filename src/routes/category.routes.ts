@@ -1,8 +1,15 @@
 import { Request, Response, Router } from "express";
+import { CustomError } from "../shared/ErrorApi";
 
 const categoryRouter = Router();
 
-categoryRouter.get("/", (req: Request, res: Response) => {
+categoryRouter.get("/", async (req: Request, res: Response) => {
+	await new Promise((resolve, reject) => {
+		setTimeout(() => {
+			reject(new CustomError({ message: "Erro ao buscar categorias", logged: false }));
+		});
+	});
+
 	res.json({ message: "Rota de categorias" });
 });
 

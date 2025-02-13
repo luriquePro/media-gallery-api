@@ -4,6 +4,7 @@ import "express-async-errors";
 import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
+import { ErrorMiddleware } from "./middlewares/error.middleware";
 import { globalRoutes } from "./routes";
 
 class ApplicationAPI {
@@ -37,6 +38,7 @@ class ApplicationAPI {
 		this.express.use(globalRoutes);
 
 		// Middleware de Erros
+		this.express.use(ErrorMiddleware);
 	}
 
 	public listen(port: number, cb?: () => void) {
