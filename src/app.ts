@@ -4,6 +4,7 @@ import "express-async-errors";
 import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
+import { globalRoutes } from "./routes";
 
 class ApplicationAPI {
 	private express: express.Application;
@@ -33,6 +34,7 @@ class ApplicationAPI {
 			.catch(() => console.log("Erro ao conectar ao banco de dados."));
 
 		// Configurar Rotas
+		this.express.use(globalRoutes);
 
 		// Middleware de Erros
 	}
