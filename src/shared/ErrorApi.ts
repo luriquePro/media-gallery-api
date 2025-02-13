@@ -2,6 +2,7 @@ import { ClientSession } from "mongoose";
 
 class ErrorApi extends Error {
 	readonly statusCode: number;
+	readonly isExpectedError: boolean = true;
 
 	constructor(message: string, statusCode: number = 500, session?: ClientSession) {
 		if (session) {
@@ -16,6 +17,7 @@ class ErrorApi extends Error {
 class CustomError extends Error {
 	readonly isCustomError: boolean = true;
 	readonly statusCode: number;
+	readonly isExpectedError: boolean = true;
 
 	constructor(message: object, statusCode: number = 500, session?: ClientSession) {
 		if (session) {
