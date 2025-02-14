@@ -1,6 +1,6 @@
 import { Document, model, Schema } from "mongoose";
 import { v4 } from "uuid";
-import { IMediaDTO } from "../interfaces/media.interface";
+import { IMediaDTO, MediaExtension, MediaType } from "../interfaces/media.interface";
 
 interface IMediaModel extends Partial<Omit<Document, "id">>, Omit<IMediaDTO, "_id"> {}
 
@@ -8,9 +8,9 @@ const MediaSchema = new Schema<IMediaModel>(
 	{
 		name: { type: String, required: true, unique: true, index: true },
 		originalName: { type: String, required: true, index: true },
-		extension: { type: String, required: true, index: true },
+		extension: { type: String, required: true, index: true, enum: MediaExtension },
 		size: { type: Number, required: true, index: true },
-		type: { type: String, required: true, index: true },
+		type: { type: String, required: true, index: true, enum: MediaType },
 		category: {
 			name: { type: String, required: true, index: true },
 			order: { type: Number, required: true, index: true },
