@@ -2,7 +2,9 @@
 
 ## Descrição
 
-Esta API tem como objetivo gerenciar uma galeria de mídia, permitindo o upload, organização e categorização de diferentes tipos de arquivos, como imagens, vídeos e GIFs. A API será desenvolvida utilizando TypeScript e MongoDB, garantindo flexibilidade e escalabilidade para armazenar grandes volumes de mídia.
+Esta API tem como objetivo gerenciar uma galeria de mídia, permitindo o upload, organização e categorização de diferentes tipos de arquivos, como
+imagens, vídeos e GIFs. A API será desenvolvida utilizando TypeScript e MongoDB, garantindo flexibilidade e escalabilidade para armazenar grandes
+volumes de mídia.
 
 ### **Principais Funcionalidades:**
 
@@ -43,43 +45,43 @@ Esta API tem como objetivo gerenciar uma galeria de mídia, permitindo o upload,
 
 ```ts
 const mediaConfig = {
-  defaultLimits: {
-    image: 20000, // 20KB
-    video: 2000000, // 2MB
-    gif: 5000000, // 5MB
-  }
+	defaultLimits: {
+		image: 20000, // 20KB
+		video: 2000000, // 2MB
+		gif: 5000000, // 5MB
+	},
 };
 ```
 
 ### 2. **Schema de Categoria**
 
 ```ts
-import { Schema, model } from 'mongoose';
+import { Schema, model } from "mongoose";
 
 const CategorySchema = new Schema({
-  name: { type: String, required: true, unique: true },
-  order: { type: Number, required: true },
-  limits: {
-    image: { type: Number, default: null },
-    video: { type: Number, default: null },
-    gif: { type: Number, default: null }
-  }
+	name: { type: String, required: true, unique: true },
+	order: { type: Number, required: true },
+	limits: {
+		image: { type: Number, default: null },
+		video: { type: Number, default: null },
+		gif: { type: Number, default: null },
+	},
 });
 
-const Category = model('Category', CategorySchema);
+const Category = model("Category", CategorySchema);
 ```
 
 **Exemplo de Documento de Categoria:**
 
 ```json
 {
-  "name": "Instagram",
-  "order": 1,
-  "limits": {
-    "image": 5000,  
-    "video": null,  
-    "gif": null  
-  }
+	"name": "Instagram",
+	"order": 1,
+	"limits": {
+		"image": 5000,
+		"video": null,
+		"gif": null
+	}
 }
 ```
 
@@ -87,27 +89,27 @@ const Category = model('Category', CategorySchema);
 
 ```ts
 const MediaSchema = new Schema({
-  filename: { type: String, required: true },
-  url: { type: String, required: true },
-  type: { type: String, enum: ['image', 'video', 'gif'], required: true },
-  size: { type: Number, required: true },
-  extension: { type: String, required: true },
-  category: { type: Schema.Types.ObjectId, ref: 'Category', required: true }
+	filename: { type: String, required: true },
+	url: { type: String, required: true },
+	type: { type: String, enum: ["image", "video", "gif"], required: true },
+	size: { type: Number, required: true },
+	extension: { type: String, required: true },
+	category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
 });
 
-const Media = model('Media', MediaSchema);
+const Media = model("Media", MediaSchema);
 ```
 
 **Exemplo de Documento de Mídia:**
 
 ```json
 {
-  "filename": "foto1.jpg",
-  "url": "https://exemplo.com/midia/foto1.jpg",
-  "type": "image",
-  "size": 4800,
-  "extension": "jpg",
-  "category": "Instagram"
+	"filename": "foto1.jpg",
+	"url": "https://exemplo.com/midia/foto1.jpg",
+	"type": "image",
+	"size": 4800,
+	"extension": "jpg",
+	"category": "Instagram"
 }
 ```
 
@@ -119,16 +121,17 @@ const Media = model('Media', MediaSchema);
    - Verificar se a categoria tem um limite específico para o tipo de mídia.
    - Caso não tenha, usar o valor padrão.
    - Retornar erro se o arquivo ultrapassar o limite.
+   - Validar a extensão de acordo com o Type
 
 ```ts
-async function validateMediaUpload(fileSize: number, fileType: 'image' | 'video' | 'gif', categoryId: string) {
-  const category = await Category.findById(categoryId);
-  if (!category) throw new Error('Categoria não encontrada');
+async function validateMediaUpload(fileSize: number, fileType: "image" | "video" | "gif", categoryId: string) {
+	const category = await Category.findById(categoryId);
+	if (!category) throw new Error("Categoria não encontrada");
 
-  const maxSize = category.limits[fileType] || mediaConfig.defaultLimits[fileType];
-  if (fileSize > maxSize) {
-    throw new Error(`Tamanho do arquivo excede o limite permitido (${maxSize} bytes)`);
-  }
+	const maxSize = category.limits[fileType] || mediaConfig.defaultLimits[fileType];
+	if (fileSize > maxSize) {
+		throw new Error(`Tamanho do arquivo excede o limite permitido (${maxSize} bytes)`);
+	}
 }
 ```
 
@@ -144,11 +147,11 @@ async function validateMediaUpload(fileSize: number, fileType: 'image' | 'video'
 
 ```json
 {
-  "name": "Instagram",
-  "order": 1,
-  "limits": {
-    "image": 5000
-  }
+	"name": "Instagram",
+	"order": 1,
+	"limits": {
+		"image": 5000
+	}
 }
 ```
 
@@ -163,4 +166,3 @@ async function validateMediaUpload(fileSize: number, fileType: 'image' | 'video'
 ---
 
 Com essa estrutura, a API de galeria de mídia garante armazenamento eficiente, categorizado e validado para diversos tipos de arquivos.
-
