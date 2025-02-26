@@ -25,10 +25,10 @@ enum MediaType {
 	VIDEO = "video",
 	AUDIO = "audio",
 	DOCUMENT = "document",
+	TEXT = "text",
 }
 
-enum MediaExtension {
-	// Imagens
+enum MediaImageExtension {
 	JPG = "jpg",
 	JPEG = "jpeg",
 	PNG = "png",
@@ -38,8 +38,9 @@ enum MediaExtension {
 	BMP = "bmp",
 	TIFF = "tiff",
 	HEIC = "heic",
+}
 
-	// Vídeos
+enum MediaVideoExtension {
 	MP4 = "mp4",
 	MKV = "mkv",
 	AVI = "avi",
@@ -47,16 +48,22 @@ enum MediaExtension {
 	WMV = "wmv",
 	FLV = "flv",
 	WEBM = "webm",
+}
 
-	// Áudios
+enum MediaAudioExtension {
 	MP3 = "mp3",
 	WAV = "wav",
 	FLAC = "flac",
 	OGG = "ogg",
 	AAC = "aac",
 	M4A = "m4a",
+}
 
-	// Documentos
+enum MediaTextExtension {
+	TXT = "txt",
+}
+
+enum MediaDocumentExtension {
 	PDF = "pdf",
 	DOC = "doc",
 	DOCX = "docx",
@@ -64,10 +71,19 @@ enum MediaExtension {
 	XLSX = "xlsx",
 	PPT = "ppt",
 	PPTX = "pptx",
-	TXT = "txt",
 	CSV = "csv",
 	JSON = "json",
 	XML = "xml",
 }
 
-export { IMediaDTO, MediaExtension, MediaType };
+const MediaExtension = {
+	...MediaImageExtension,
+	...MediaVideoExtension,
+	...MediaAudioExtension,
+	...MediaDocumentExtension,
+	...MediaTextExtension,
+};
+
+type MediaExtension = (typeof MediaExtension)[keyof typeof MediaExtension];
+
+export { IMediaDTO, MediaAudioExtension, MediaDocumentExtension, MediaExtension, MediaImageExtension, MediaType, MediaVideoExtension };
